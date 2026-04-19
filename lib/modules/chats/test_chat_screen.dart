@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minute_minder/shared/social_cubit/cubit.dart';
-import 'package:minute_minder/shared/social_cubit/states.dart';
+import 'package:minute_minder/shared/minute_minder_cubit/cubit.dart';
+import 'package:minute_minder/shared/minute_minder_cubit/states.dart';
 import 'package:minute_minder/shared/styles/color.dart';
 import 'package:minute_minder/shared/styles/iconBroken.dart';
 
@@ -12,18 +12,18 @@ class ChatsScreenn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SocialCubit, SocialAppStates>(
+    return BlocConsumer<MinuteMinderCubit, MinuteMinderAppStates>(
       listener: (context, state) {},
       builder: (context, state) {
         WidgetsBinding.instance.addPostFrameCallback((_)
         {
-          if (!SocialCubit.get(context).isWelcomeMessageSent)
+          if (!MinuteMinderCubit.get(context).isWelcomeMessageSent)
           {
-            SocialCubit.get(context).sendWelcomeMessage(context);
+            MinuteMinderCubit.get(context).sendWelcomeMessage(context);
           }
-          if (SocialCubit.get(context).scrollController.hasClients)
+          if (MinuteMinderCubit.get(context).scrollController.hasClients)
           {
-            SocialCubit.get(context).scrollController.jumpTo(SocialCubit.get(context).scrollController.position.maxScrollExtent);
+            MinuteMinderCubit.get(context).scrollController.jumpTo(MinuteMinderCubit.get(context).scrollController.position.maxScrollExtent);
           }
         });
         return Scaffold(
@@ -54,11 +54,11 @@ class ChatsScreenn extends StatelessWidget {
               children: [
                 Expanded(
                   child: AnimatedList(
-                    key: SocialCubit.get(context).listKey,
-                    controller: SocialCubit.get(context).scrollController,
-                    initialItemCount: SocialCubit.get(context).messages.length,
+                    key: MinuteMinderCubit.get(context).listKey,
+                    controller: MinuteMinderCubit.get(context).scrollController,
+                    initialItemCount: MinuteMinderCubit.get(context).messages.length,
                     itemBuilder: (context, index, animation) {
-                      var message = SocialCubit.get(context).messages[index];
+                      var message = MinuteMinderCubit.get(context).messages[index];
                       return SizeTransition(
                         sizeFactor: animation,
                         child: Padding(
@@ -150,7 +150,7 @@ class ChatsScreenn extends StatelessWidget {
                     children: [
                       Expanded(
                         child: TextFormField(
-                          controller: SocialCubit.get(context).chatController,
+                          controller: MinuteMinderCubit.get(context).chatController,
                           validator: (val) {
                             if (val!.isEmpty) {
                               return "can't put empty message!";
@@ -169,7 +169,7 @@ class ChatsScreenn extends StatelessWidget {
                         color: defaultColor,
                         child: MaterialButton(
                           onPressed: () {
-                            SocialCubit.get(context).sendMessageAndReceiveResponse(context);
+                            MinuteMinderCubit.get(context).sendMessageAndReceiveResponse(context);
                           },
                           minWidth: 1.0,
                           child: const Icon(

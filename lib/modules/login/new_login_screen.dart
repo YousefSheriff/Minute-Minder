@@ -2,20 +2,19 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minute_minder/modules/Social_layout/social_layout_screen.dart';
-// import 'package:minute_minder/modules/Social_layout/social_layout_screen.dart';
 import 'package:minute_minder/modules/login/login_cubit/cubit.dart';
 import 'package:minute_minder/modules/login/login_cubit/states.dart';
+import 'package:minute_minder/modules/minute_minder_layout/minute_minder_layout_screen.dart';
 import 'package:minute_minder/modules/register/new_register_screen.dart';
 import 'package:minute_minder/shared/app_mode_cubit/mode_cubit.dart';
 import 'package:minute_minder/shared/components/components.dart';
 import 'package:minute_minder/shared/network/local/cache_helper.dart';
-import 'package:minute_minder/shared/social_cubit/cubit.dart';
+import 'package:minute_minder/shared/minute_minder_cubit/cubit.dart';
 import 'package:minute_minder/shared/styles/color.dart';
 // import 'package:minute_minder/translations/locale_keys.g.dart';
 
-class SocialLoginNewScreen extends StatelessWidget {
-  SocialLoginNewScreen({Key? key}) : super(key: key);
+class MinuteMinderLoginNewScreen extends StatelessWidget {
+  MinuteMinderLoginNewScreen({Key? key}) : super(key: key);
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var formKey = GlobalKey<FormState>();
@@ -24,22 +23,22 @@ class SocialLoginNewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) {
-        return SocialLoginCubit();
+        return MinuteMinderLoginCubit();
       },
-      child: BlocConsumer<SocialLoginCubit, SocialLoginStates>(
+      child: BlocConsumer<MinuteMinderLoginCubit, MinuteMinderLoginStates>(
         listener: (context, state)
         {
-          if(state is SocialLoginSuccessState )
+          if(state is MinuteMinderLoginSuccessState )
           {
             CacheHelper.saveData(key: 'uId', value: state.uId).then((value)
             {
-              navigateAndFinish(context, const SocialLayoutScreen());
+              navigateAndFinish(context, const MinuteMinderLayoutScreen());
               showToast(message: 'Login Done Successfully', state: ToastStates.SUCCESS);
 
             });
-            // navigateAndFinish(context, const SocialLayoutScreen(),);
+            // navigateAndFinish(context, const MinuteMinderLayoutScreen(),);
           }
-          else if(state is SocialLoginErrorState)
+          else if(state is MinuteMinderLoginErrorState)
           {
             showToast(message: 'PLz check your Data', state: ToastStates.ERROR);
           }
@@ -184,14 +183,14 @@ class SocialLoginNewScreen extends StatelessWidget {
                                   labelText: "Password",
                                   prefixIcon: Icons.lock_outline_rounded,
                                   suffixOnPressed: () {
-                                    SocialLoginCubit.get(context)
+                                    MinuteMinderLoginCubit.get(context)
                                         .changeEyeIcon();
                                   },
                                   isPassword:
-                                      SocialLoginCubit.get(context).isPassword,
+                                      MinuteMinderLoginCubit.get(context).isPassword,
                                   validatorString: "password must not be empty",
-                                  suffixIcon: SocialLoginCubit.get(context).suffix,
-                                  suffixColor: !SocialLoginCubit.get(context).isPassword ? defaultColor : Theme.of(context).textTheme.bodyLarge!.color,
+                                  suffixIcon: MinuteMinderLoginCubit.get(context).suffix,
+                                  suffixColor: !MinuteMinderLoginCubit.get(context).isPassword ? defaultColor : Theme.of(context).textTheme.bodyLarge!.color,
                                 ),
                                 const SizedBox(
                                   height: 10.0,
@@ -205,7 +204,7 @@ class SocialLoginNewScreen extends StatelessWidget {
                                   height: 10.0,
                                 ),
                                 ConditionalBuilder(
-                                  condition: state is! SocialLoginLoadingState,
+                                  condition: state is! MinuteMinderLoginLoadingState,
                                   builder: (BuildContext context) {
                                     return defaultButton(
                                       color: defaultColor,
@@ -215,7 +214,7 @@ class SocialLoginNewScreen extends StatelessWidget {
                                       Function: () {
                                         if(formKey.currentState!.validate())
                                         {
-                                          SocialLoginCubit.get(context).userLogin(email: emailController.text, password: passwordController.text);
+                                          MinuteMinderLoginCubit.get(context).userLogin(email: emailController.text, password: passwordController.text);
                                         }
                                       },
                                     );
@@ -337,7 +336,7 @@ class SocialLoginNewScreen extends StatelessWidget {
                                     ),
                                     defaultTextButton(
                                       Function: () {
-                                        navigateAndFinish(context, SocialRegisterNewScreen());
+                                        navigateAndFinish(context, MinuteMinderRegisterNewScreen());
                                       },
                                       text: "SignUp Now",
                                       fontWeight: FontWeight.bold,

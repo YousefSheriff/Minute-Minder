@@ -7,10 +7,10 @@ import 'package:minute_minder/models/user_create/user_create_model.dart';
 import 'package:minute_minder/modules/register/register_cubit/states.dart';
 import 'package:minute_minder/shared/components/constant.dart';
 
-class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
-  SocialRegisterCubit() : super(SocialRegisterInitialState());
+class MinuteMinderRegisterCubit extends Cubit<MinuteMinderRegisterStates> {
+  MinuteMinderRegisterCubit() : super(MinuteMinderRegisterInitialState());
 
-  static SocialRegisterCubit get(context) => BlocProvider.of(context);
+  static MinuteMinderRegisterCubit get(context) => BlocProvider.of(context);
 
   void userRegister({
     required String name,
@@ -18,7 +18,7 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
     required String phone,
     required String password,
   }) {
-    emit(SocialRegisterLoadingState());
+    emit(MinuteMinderRegisterLoadingState());
     FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password,)
         .then((value){
           print(value.user!.email);
@@ -29,10 +29,10 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
             phone: phone,
             uId: value.user!.uid,
           );
-          emit(SocialRegisterSuccessState());
+          emit(MinuteMinderRegisterSuccessState());
     }).catchError((error) {
       print(error.toString());
-      emit(SocialRegisterErrorState(error.toString()));
+      emit(MinuteMinderRegisterErrorState(error.toString()));
     });
   }
 
@@ -54,10 +54,10 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
     FirebaseFirestore.instance.collection('users').doc(uId).set(model.toMap()).then((value)
     {
 
-      emit(SocialCreateUserSuccessState(uId));
+      emit(MinuteMinderCreateUserSuccessState(uId));
     }).catchError((error) {
       print(error.toString());
-      emit(SocialCreateUserErrorState(error.toString()));
+      emit(MinuteMinderCreateUserErrorState(error.toString()));
     });
   }
 
@@ -72,6 +72,6 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
     isPassword = !isPassword;
     suffix =
         isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
-    emit(SocialRegisterChangeEyeIconState());
+    emit(MinuteMinderRegisterChangeEyeIconState());
   }
 }

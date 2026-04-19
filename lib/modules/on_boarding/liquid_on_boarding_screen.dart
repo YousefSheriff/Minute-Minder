@@ -208,7 +208,7 @@ class _LiquidOnBoardingState extends State<LiquidOnBoarding>
     {
       if(value)
       {
-        navigateAndFinish(context, SocialLoginNewScreen());
+        navigateAndFinish(context, MinuteMinderLoginNewScreen());
       }
     });
   }

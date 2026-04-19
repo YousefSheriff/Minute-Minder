@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minute_minder/shared/social_cubit/cubit.dart';
-import 'package:minute_minder/shared/social_cubit/states.dart';
+import 'package:minute_minder/shared/minute_minder_cubit/cubit.dart';
+import 'package:minute_minder/shared/minute_minder_cubit/states.dart';
 import 'package:minute_minder/shared/styles/color.dart';
 import 'package:minute_minder/shared/styles/iconBroken.dart';
 
@@ -12,7 +12,7 @@ class ChatsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SocialCubit,SocialAppStates>(
+    return BlocConsumer<MinuteMinderCubit,MinuteMinderAppStates>(
       listener: (context,state){},
       builder: (context,state)
       {

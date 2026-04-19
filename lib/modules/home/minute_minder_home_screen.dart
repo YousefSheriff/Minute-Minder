@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minute_minder/shared/components/components.dart';
 import 'package:minute_minder/shared/components/constant.dart';
-import 'package:minute_minder/shared/social_cubit/cubit.dart';
-import 'package:minute_minder/shared/social_cubit/states.dart';
+import 'package:minute_minder/shared/minute_minder_cubit/cubit.dart';
+import 'package:minute_minder/shared/minute_minder_cubit/states.dart';
 import 'package:minute_minder/shared/styles/color.dart';
 import 'package:video_player/video_player.dart';
 
@@ -15,8 +15,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SocialCubit.get(context).getUserName();
-    return BlocConsumer<SocialCubit,SocialAppStates>(
+    MinuteMinderCubit.get(context).getUserName();
+    return BlocConsumer<MinuteMinderCubit,MinuteMinderAppStates>(
       listener: (BuildContext context, state) {
         if (state is MinuteSendQuerySuccessState)
         {
@@ -107,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 15.0,),
-                    SocialCubit.get(context).videoPlayerController!=null?
+                    MinuteMinderCubit.get(context).videoPlayerController!=null?
                       Column(
                       children: [
                         Card(
@@ -121,13 +121,13 @@ class HomeScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children:
                               [
-                                if (SocialCubit.get(context).video!=null)
-                                  SocialCubit.get(context).videoPlayerController!.value.isInitialized?
+                                if (MinuteMinderCubit.get(context).video!=null)
+                                  MinuteMinderCubit.get(context).videoPlayerController!.value.isInitialized?
                                   Column(
                                     children: [
                                       AspectRatio(
-                                        aspectRatio: SocialCubit.get(context).videoPlayerController!.value.aspectRatio,
-                                        child: VideoPlayer(SocialCubit.get(context).videoPlayerController!),
+                                        aspectRatio: MinuteMinderCubit.get(context).videoPlayerController!.value.aspectRatio,
+                                        child: VideoPlayer(MinuteMinderCubit.get(context).videoPlayerController!),
                                       ),
                                       const SizedBox(height: 7.0,),
                                       Padding(
@@ -136,11 +136,11 @@ class HomeScreen extends StatelessWidget {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              SocialCubit.get(context).formatDuration(SocialCubit.get(context).videoPlayerController!.value.position),
+                                              MinuteMinderCubit.get(context).formatDuration(MinuteMinderCubit.get(context).videoPlayerController!.value.position),
                                               style: const TextStyle(color: Colors.black),
                                             ),
                                             Text(
-                                              SocialCubit.get(context).formatDuration(SocialCubit.get(context).videoPlayerController!.value.duration),
+                                              MinuteMinderCubit.get(context).formatDuration(MinuteMinderCubit.get(context).videoPlayerController!.value.duration),
                                               style: const TextStyle(color: Colors.black),
                                             ),
                                           ],
@@ -151,7 +151,7 @@ class HomeScreen extends StatelessWidget {
                                         width: double.infinity,
                                         height: 12.0,
                                         child: VideoProgressIndicator(
-                                          SocialCubit.get(context).videoPlayerController!,
+                                          MinuteMinderCubit.get(context).videoPlayerController!,
                                           allowScrubbing: true,
                                           colors: const VideoProgressColors(
                                             backgroundColor: Colors.grey,
@@ -173,10 +173,10 @@ class HomeScreen extends StatelessWidget {
                                     ElevatedButton(
                                       onPressed: ()async
                                       {
-                                        Duration? d = await SocialCubit.get(context).videoPlayerController!.position;
+                                        Duration? d = await MinuteMinderCubit.get(context).videoPlayerController!.position;
                                         // print(d);
                                         var val = d! - const Duration(seconds: 5);
-                                        SocialCubit.get(context).videoPlayerController!.seekTo(val);
+                                        MinuteMinderCubit.get(context).videoPlayerController!.seekTo(val);
                                       },
                                       child: const Text("<<"),
                                     ),
@@ -184,18 +184,18 @@ class HomeScreen extends StatelessWidget {
                                     ElevatedButton(
                                       onPressed: ()
                                       {
-                                        if (SocialCubit.get(context).isStop)
+                                        if (MinuteMinderCubit.get(context).isStop)
                                         {
-                                          SocialCubit.get(context).changePlayingModeIcon(mode: false, icon: Icons.pause);
-                                          SocialCubit.get(context).videoPlayerController!.play();
+                                          MinuteMinderCubit.get(context).changePlayingModeIcon(mode: false, icon: Icons.pause);
+                                          MinuteMinderCubit.get(context).videoPlayerController!.play();
                                         }
                                         else{
-                                          SocialCubit.get(context).changePlayingModeIcon(mode: true, icon: Icons.play_arrow_rounded);
-                                          SocialCubit.get(context).videoPlayerController!.pause();
+                                          MinuteMinderCubit.get(context).changePlayingModeIcon(mode: true, icon: Icons.play_arrow_rounded);
+                                          MinuteMinderCubit.get(context).videoPlayerController!.pause();
                                         }
 
                                       },
-                                      child: Icon(SocialCubit.get(context).stopAndPauseIcon),
+                                      child: Icon(MinuteMinderCubit.get(context).stopAndPauseIcon),
                                     ),
 
                                     // ElevatedButton(
@@ -210,13 +210,13 @@ class HomeScreen extends StatelessWidget {
                                     ElevatedButton(
                                       onPressed: ()async
                                       {
-                                        Duration? d = await SocialCubit.get(context).videoPlayerController!.position;
+                                        Duration? d = await MinuteMinderCubit.get(context).videoPlayerController!.position;
                                         // print(d);
                                         var val = d! + const Duration(seconds: 5);
                                         print("hhhhhhhhhhhhhhhhhhhhhhhhhh");
                                         print(val);//0:00:07.877000
                                         print("hhhhhhhhhhhhhhhhhhhhhhhhhh");
-                                        SocialCubit.get(context).videoPlayerController!.seekTo(val);
+                                        MinuteMinderCubit.get(context).videoPlayerController!.seekTo(val);
                                       },
                                       child: const Text(">>"),
                                     ),
@@ -245,15 +245,15 @@ class HomeScreen extends StatelessWidget {
                           {
                             if(formKey.currentState!.validate())
                             {
-                              SocialCubit.get(context).sendMessage(message: queryController.text);
-                              if (SocialCubit.get(context).isStop)
+                              MinuteMinderCubit.get(context).sendMessage(message: queryController.text);
+                              if (MinuteMinderCubit.get(context).isStop)
                               {
-                                SocialCubit.get(context).changePlayingModeIcon(mode: false, icon: Icons.pause);
+                                MinuteMinderCubit.get(context).changePlayingModeIcon(mode: false, icon: Icons.pause);
                               }
                               Future.delayed(const Duration(seconds: 10), ()
                               {
-                                SocialCubit.get(context).changePlayingModeIcon(mode: true, icon: Icons.play_arrow_rounded);
-                                SocialCubit.get(context).videoPlayerController!.pause();
+                                MinuteMinderCubit.get(context).changePlayingModeIcon(mode: true, icon: Icons.play_arrow_rounded);
+                                MinuteMinderCubit.get(context).videoPlayerController!.pause();
                               });
 
                               // await Future.delayed(const Duration(seconds: 3)); // Adding a delay of 2 seconds
@@ -321,7 +321,7 @@ class HomeScreen extends StatelessWidget {
           floatingActionButton:FloatingActionButton(
               onPressed: ()
               {
-                SocialCubit.get(context).getVideo();
+                MinuteMinderCubit.get(context).getVideo();
               },
               child: const Icon(Icons.add,size: 25.0,)),
         );

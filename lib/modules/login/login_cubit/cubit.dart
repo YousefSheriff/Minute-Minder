@@ -4,27 +4,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:minute_minder/modules/login/login_cubit/states.dart';
 
-class SocialLoginCubit extends Cubit<SocialLoginStates> {
-  SocialLoginCubit() : super(SocialLoginInitialState());
+class MinuteMinderLoginCubit extends Cubit<MinuteMinderLoginStates> {
+  MinuteMinderLoginCubit() : super(MinuteMinderLoginInitialState());
 
-  static SocialLoginCubit get(context) => BlocProvider.of(context);
+  static MinuteMinderLoginCubit get(context) => BlocProvider.of(context);
 
   void userLogin({
     required String email,
     required String password,
   }) {
-    emit(SocialLoginLoadingState());
+    emit(MinuteMinderLoginLoadingState());
     FirebaseAuth.instance.signInWithEmailAndPassword(
       email: email,
       password: password,
     ).then((value) {
       print(value.user!.email);
       print(value.user!.uid);
-      emit(SocialLoginSuccessState(value.user!.uid));
+      emit(MinuteMinderLoginSuccessState(value.user!.uid));
     }).catchError((error)
     {
       print(error.toString());
-      emit(SocialLoginErrorState(error.toString()));
+      emit(MinuteMinderLoginErrorState(error.toString()));
 
     });
   }
@@ -37,6 +37,6 @@ class SocialLoginCubit extends Cubit<SocialLoginStates> {
     isPassword = !isPassword;
     suffix =
         isPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined;
-    emit(SocialLoginChangeEyeIconState());
+    emit(MinuteMinderLoginChangeEyeIconState());
   }
 }
