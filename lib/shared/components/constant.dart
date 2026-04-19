@@ -1,3 +1,4 @@
+import 'package:minute_minder/modules/login/new_login_screen.dart';
 import 'package:minute_minder/shared/components/components.dart';
 import 'package:minute_minder/shared/network/local/cache_helper.dart';
 
@@ -19,7 +20,7 @@ void signOut(context)
   {
     if(value == true)
     {
-      // navigateAndFinish(context, SocialLoginNewScreen(),);
+      navigateAndFinish(context, SocialLoginNewScreen(),);
     }
   });
 }

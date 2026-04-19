@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:minute_minder/modules/Social_layout/social_layout_screen.dart';
 // import 'package:minute_minder/modules/Social_layout/social_layout_screen.dart';
 import 'package:minute_minder/modules/login/new_login_screen.dart';
 import 'package:minute_minder/modules/register/register_cubit/cubit.dart';
@@ -28,23 +29,23 @@ class SocialRegisterNewScreen extends StatelessWidget {
       child: BlocConsumer<SocialRegisterCubit, SocialRegisterStates>(
         listener: (context, state)
         {
-          // if(state is SocialCreateUserSuccessState)
-          // {
-          //
-          //   CacheHelper.saveData(key: 'uId', value: state.uId).then((value)
-          //   {
-          //     print('new aaaaaaaaaaaaaaaaaaaac');
-          //     print(state.uId.toString());
-          //     showToast(message: 'Account created Successfully', state: ToastStates.SUCCESS);
-          //     navigateAndFinish(context, const SocialLayoutScreen(),);
-          //
-          //   });
-          // }
-          // else if (state is SocialRegisterErrorState)
-          // {
-          //   showToast(message:state.error.toString() , state: ToastStates.ERROR);
-          //   // print(state.error.toString());
-          // }
+          if(state is SocialCreateUserSuccessState)
+          {
+
+            CacheHelper.saveData(key: 'uId', value: state.uId).then((value)
+            {
+              print('new aaaaaaaaaaaaaaaaaaaac');
+              print(state.uId.toString());
+              showToast(message: 'Account created Successfully', state: ToastStates.SUCCESS);
+              navigateAndFinish(context, const SocialLayoutScreen(),);
+
+            });
+          }
+          else if (state is SocialRegisterErrorState)
+          {
+            showToast(message:state.error.toString() , state: ToastStates.ERROR);
+            // print(state.error.toString());
+          }
         },
         builder: (context, state) {
           return Scaffold(

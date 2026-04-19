@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:minute_minder/modules/Social_layout/social_layout_screen.dart';
 import 'package:minute_minder/shared/components/constant.dart';
 import 'package:minute_minder/modules/login/new_login_screen.dart';
 import 'package:minute_minder/modules/on_boarding/liquid_on_boarding_screen.dart';
@@ -38,8 +39,7 @@ void main() async
   {
     if (uId != null)
     {
-      // startWidget = const SocialLayoutScreen();
-      startWidget = SocialLoginNewScreen();
+      startWidget = const SocialLayoutScreen();
     }
     else
     {
@@ -75,12 +75,12 @@ class MyApp extends StatelessWidget
               return ModeCubit()..changeAppMode(fromShared: isDark);
             }
         ),
-        // BlocProvider(
-        //     create: (BuildContext context)
-        //     {
-        //       return SocialCubit();
-        //     }
-        // ),
+        BlocProvider(
+            create: (BuildContext context)
+            {
+              return SocialCubit();
+            }
+        ),
       ],
       child: BlocConsumer<ModeCubit, ModeStates>(
         listener: (context, state) {},
