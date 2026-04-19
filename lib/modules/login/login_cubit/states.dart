@@ -1,22 +1,22 @@
 
-abstract class SocialLoginStates {}
+abstract class MinuteMinderLoginStates {}
 
-class SocialLoginInitialState extends SocialLoginStates{}
+class MinuteMinderLoginInitialState extends MinuteMinderLoginStates{}
 
-class SocialLoginLoadingState extends SocialLoginStates{}
+class MinuteMinderLoginLoadingState extends MinuteMinderLoginStates{}
 
-class SocialLoginSuccessState extends SocialLoginStates
+class MinuteMinderLoginSuccessState extends MinuteMinderLoginStates
 {
   final String uId ;
 
-  SocialLoginSuccessState(this.uId);
+  MinuteMinderLoginSuccessState(this.uId);
 }
 
-class SocialLoginErrorState extends SocialLoginStates
+class MinuteMinderLoginErrorState extends MinuteMinderLoginStates
 {
   final String error ;
 
-  SocialLoginErrorState(this.error);
+  MinuteMinderLoginErrorState(this.error);
 }
 
-class SocialLoginChangeEyeIconState extends SocialLoginStates{}
+class MinuteMinderLoginChangeEyeIconState extends MinuteMinderLoginStates{}

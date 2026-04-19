@@ -2,9 +2,8 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minute_minder/modules/Social_layout/social_layout_screen.dart';
-// import 'package:minute_minder/modules/Social_layout/social_layout_screen.dart';
 import 'package:minute_minder/modules/login/new_login_screen.dart';
+import 'package:minute_minder/modules/minute_minder_layout/minute_minder_layout_screen.dart';
 import 'package:minute_minder/modules/register/register_cubit/cubit.dart';
 import 'package:minute_minder/modules/register/register_cubit/states.dart';
 import 'package:minute_minder/shared/app_mode_cubit/mode_cubit.dart';
@@ -12,8 +11,8 @@ import 'package:minute_minder/shared/components/components.dart';
 import 'package:minute_minder/shared/network/local/cache_helper.dart';
 import 'package:minute_minder/shared/styles/color.dart';
 
-class SocialRegisterNewScreen extends StatelessWidget {
-  SocialRegisterNewScreen({Key? key}) : super(key: key);
+class MinuteMinderRegisterNewScreen extends StatelessWidget {
+  MinuteMinderRegisterNewScreen({Key? key}) : super(key: key);
   var nameController = TextEditingController();
   var emailController = TextEditingController();
   var phoneController = TextEditingController();
@@ -24,12 +23,12 @@ class SocialRegisterNewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (BuildContext context) {
-        return SocialRegisterCubit();
+        return MinuteMinderRegisterCubit();
       },
-      child: BlocConsumer<SocialRegisterCubit, SocialRegisterStates>(
+      child: BlocConsumer<MinuteMinderRegisterCubit, MinuteMinderRegisterStates>(
         listener: (context, state)
         {
-          if(state is SocialCreateUserSuccessState)
+          if(state is MinuteMinderCreateUserSuccessState)
           {
 
             CacheHelper.saveData(key: 'uId', value: state.uId).then((value)
@@ -37,11 +36,11 @@ class SocialRegisterNewScreen extends StatelessWidget {
               print('new aaaaaaaaaaaaaaaaaaaac');
               print(state.uId.toString());
               showToast(message: 'Account created Successfully', state: ToastStates.SUCCESS);
-              navigateAndFinish(context, const SocialLayoutScreen(),);
+              navigateAndFinish(context, const MinuteMinderLayoutScreen(),);
 
             });
           }
-          else if (state is SocialRegisterErrorState)
+          else if (state is MinuteMinderRegisterErrorState)
           {
             showToast(message:state.error.toString() , state: ToastStates.ERROR);
             // print(state.error.toString());
@@ -212,18 +211,18 @@ class SocialRegisterNewScreen extends StatelessWidget {
                                   prefixIcon: Icons.lock_outline_rounded,
                                   suffixOnPressed: ()
                                   {
-                                    SocialRegisterCubit.get(context).changeEyeIcon();
+                                    MinuteMinderRegisterCubit.get(context).changeEyeIcon();
                                   },
-                                  isPassword: SocialRegisterCubit.get(context).isPassword,
+                                  isPassword: MinuteMinderRegisterCubit.get(context).isPassword,
                                   validatorString:"password must not be empty",
-                                  suffixIcon: SocialRegisterCubit.get(context).suffix,
-                                  suffixColor: !SocialRegisterCubit.get(context).isPassword ? defaultColor : Theme.of(context).textTheme.bodyLarge!.color,),
+                                  suffixIcon: MinuteMinderRegisterCubit.get(context).suffix,
+                                  suffixColor: !MinuteMinderRegisterCubit.get(context).isPassword ? defaultColor : Theme.of(context).textTheme.bodyLarge!.color,),
                                 const SizedBox(
                                   height: 15.0,
                                 ),
 
                                 ConditionalBuilder(
-                                  condition: state is! SocialRegisterLoadingState,
+                                  condition: state is! MinuteMinderRegisterLoadingState,
                                   builder: (BuildContext context) {
                                     return defaultButton(
                                       color: defaultColor,
@@ -233,7 +232,7 @@ class SocialRegisterNewScreen extends StatelessWidget {
                                       Function: () {
                                         if(formKey.currentState!.validate())
                                         {
-                                          SocialRegisterCubit.get(context).userRegister
+                                          MinuteMinderRegisterCubit.get(context).userRegister
                                             (
                                             name: nameController.text,
                                             email: emailController.text,
@@ -265,7 +264,7 @@ class SocialRegisterNewScreen extends StatelessWidget {
                                     defaultTextButton(
                                       Function: ()
                                       {
-                                        navigateAndFinish(context, SocialLoginNewScreen());
+                                        navigateAndFinish(context, MinuteMinderLoginNewScreen());
                                       },
                                       text: "Sign In",
                                       fontWeight: FontWeight.bold,

@@ -5,11 +5,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:minute_minder/models/chat_bot/chat_message_model.dart';
 import 'package:minute_minder/models/send_query/send_query_model.dart';
 import 'package:minute_minder/modules/chats/test_chat_screen.dart';
-import 'package:minute_minder/modules/home/social_home_screen.dart';
-import 'package:minute_minder/modules/settings/social_settings_screen.dart';
+import 'package:minute_minder/modules/home/minute_minder_home_screen.dart';
+import 'package:minute_minder/modules/settings/minute_minder_settings_screen.dart';
 import 'package:minute_minder/shared/components/constant.dart';
 import 'package:minute_minder/shared/network/remote/dio_helper.dart';
-import 'package:minute_minder/shared/social_cubit/states.dart';
+import 'package:minute_minder/shared/minute_minder_cubit/states.dart';
 import 'dart:convert';
 import 'package:minute_minder/shared/styles/iconBroken.dart';
 import 'package:video_player/video_player.dart';
@@ -19,10 +19,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 
 
-  class SocialCubit  extends Cubit<SocialAppStates>
+  class MinuteMinderCubit  extends Cubit<MinuteMinderAppStates>
 {
 
-  SocialCubit():super(AppInitialState());
+  MinuteMinderCubit():super(AppInitialState());
 
   var commentController = TextEditingController();
 
@@ -57,7 +57,7 @@ import 'package:firebase_auth/firebase_auth.dart';
     const SettingsScreen(),
 ];
 
-  static SocialCubit get(context) => BlocProvider.of(context);
+  static MinuteMinderCubit get(context) => BlocProvider.of(context);
 
 
   void changeIndex(index)
@@ -84,7 +84,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
   Future<void> getUserName() async
   {
-    emit(SocialGetUserNameLoadingState());
+    emit(MinuteMinderGetUserNameLoadingState());
     String? uId = FirebaseAuth.instance.currentUser?.uid;
 
     if (uId != null)
@@ -93,19 +93,19 @@ import 'package:firebase_auth/firebase_auth.dart';
         if (value.exists)
         {
           currentUserName = value.data()!['name'];
-          emit(SocialGetUserNameSuccessState(currentUserName!));
+          emit(MinuteMinderGetUserNameSuccessState(currentUserName!));
         } else
         {
-          emit(SocialGetUserNameErrorState('User not found'));
+          emit(MinuteMinderGetUserNameErrorState('User not found'));
         }
       }).catchError((error)
       {
         print(error.toString());
-        emit(SocialGetUserNameErrorState(error.toString()));
+        emit(MinuteMinderGetUserNameErrorState(error.toString()));
       });
     } else
     {
-      emit(SocialGetUserNameErrorState('User not logged in'));
+      emit(MinuteMinderGetUserNameErrorState('User not logged in'));
     }
   }
 
@@ -125,7 +125,7 @@ import 'package:firebase_auth/firebase_auth.dart';
       videoPlayerController = VideoPlayerController.file(video!)..initialize().then((value)
       {
         print(pickedFile.path);
-        emit(SocialProfileImagePickedSuccessState());
+        emit(MinuteMinderProfileImagePickedSuccessState());
         // addVideoListener();
         // videoPlayerController!.play();
       });
@@ -133,7 +133,7 @@ import 'package:firebase_auth/firebase_auth.dart';
     else
     {
       print('No video selected.');
-      emit(SocialProfileImagePickedErrorState());
+      emit(MinuteMinderProfileImagePickedErrorState());
     }
   }
 
@@ -141,7 +141,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
   // void addVideoListener() {
   //   videoPlayerController?.addListener(() {
-  //     emit(SocialVideoPositionChangedState());
+  //     emit(MinuteMinderVideoPositionChangedState());
   //   });
   // }
 
@@ -224,8 +224,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 
   void addMessagee(BuildContext context, ChatMessageModel message) {
-    SocialCubit.get(context).addMessage(message);
-    listKey.currentState?.insertItem(SocialCubit.get(context).messages.length - 1);
+    MinuteMinderCubit.get(context).addMessage(message);
+    listKey.currentState?.insertItem(MinuteMinderCubit.get(context).messages.length - 1);
   }
 
   List<ChatMessageModel> messages = [];

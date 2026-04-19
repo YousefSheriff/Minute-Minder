@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minute_minder/modules/Social_layout/social_layout_screen.dart';
 import 'package:minute_minder/shared/components/components.dart';
 import 'package:minute_minder/shared/components/constant.dart';
-import 'package:minute_minder/shared/social_cubit/cubit.dart';
-import 'package:minute_minder/shared/social_cubit/states.dart';
+import 'package:minute_minder/shared/minute_minder_cubit/cubit.dart';
+import 'package:minute_minder/shared/minute_minder_cubit/states.dart';
 import 'package:minute_minder/shared/styles/color.dart';
 import 'package:minute_minder/shared/styles/iconBroken.dart';
 import 'package:video_player/video_player.dart';
@@ -15,7 +14,7 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SocialCubit, SocialAppStates>(
+    return BlocConsumer<MinuteMinderCubit, MinuteMinderAppStates>(
       listener: (context, state) {
       },
       builder: (context, state) {
@@ -223,7 +222,7 @@ class SettingsScreen extends StatelessWidget {
                     onTap: ()
                     {
                       signOut(context);
-                      SocialCubit.get(context).currentIndex = 0;
+                      MinuteMinderCubit.get(context).currentIndex = 0;
                     },
                     child: Container(
                       width: 250.0,

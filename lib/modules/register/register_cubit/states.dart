@@ -1,34 +1,34 @@
 
-abstract class SocialRegisterStates {}
+abstract class MinuteMinderRegisterStates {}
 
-class SocialRegisterInitialState extends SocialRegisterStates{}
+class MinuteMinderRegisterInitialState extends MinuteMinderRegisterStates{}
 
-class SocialRegisterLoadingState extends SocialRegisterStates{}
+class MinuteMinderRegisterLoadingState extends MinuteMinderRegisterStates{}
 
-class SocialRegisterSuccessState extends SocialRegisterStates {}
+class MinuteMinderRegisterSuccessState extends MinuteMinderRegisterStates {}
 
-class SocialRegisterErrorState extends SocialRegisterStates
+class MinuteMinderRegisterErrorState extends MinuteMinderRegisterStates
 {
   final String error ;
 
-  SocialRegisterErrorState(this.error);
+  MinuteMinderRegisterErrorState(this.error);
 }
 
-class SocialCreateUserSuccessState extends SocialRegisterStates
+class MinuteMinderCreateUserSuccessState extends MinuteMinderRegisterStates
 {
   final String uId ;
 
-  SocialCreateUserSuccessState(this.uId);
+  MinuteMinderCreateUserSuccessState(this.uId);
 }
 
-class SocialCreateUserErrorState extends SocialRegisterStates
+class MinuteMinderCreateUserErrorState extends MinuteMinderRegisterStates
 {
   final String error ;
 
-  SocialCreateUserErrorState(this.error);
+  MinuteMinderCreateUserErrorState(this.error);
 }
 
-class SocialRegisterChangeEyeIconState extends SocialRegisterStates{}
+class MinuteMinderRegisterChangeEyeIconState extends MinuteMinderRegisterStates{}
 
 
 

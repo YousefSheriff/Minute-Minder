@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minute_minder/modules/Social_layout/social_layout_screen.dart';
+import 'package:minute_minder/modules/minute_minder_layout/minute_minder_layout_screen.dart';
 import 'package:minute_minder/shared/components/constant.dart';
 import 'package:minute_minder/modules/login/new_login_screen.dart';
 import 'package:minute_minder/modules/on_boarding/liquid_on_boarding_screen.dart';
@@ -10,8 +10,8 @@ import 'package:minute_minder/shared/app_mode_cubit/mode_cubit.dart';
 import 'package:minute_minder/shared/app_mode_cubit/mode_states.dart';
 import 'package:minute_minder/shared/network/local/cache_helper.dart';
 import 'package:minute_minder/shared/network/remote/dio_helper.dart';
-import 'package:minute_minder/shared/social_cubit/bloc_observer.dart';
-import 'package:minute_minder/shared/social_cubit/cubit.dart';
+import 'package:minute_minder/shared/minute_minder_cubit/bloc_observer.dart';
+import 'package:minute_minder/shared/minute_minder_cubit/cubit.dart';
 import 'package:minute_minder/shared/styles/themes.dart';
 
 
@@ -39,11 +39,11 @@ void main() async
   {
     if (uId != null)
     {
-      startWidget = const SocialLayoutScreen();
+      startWidget = const MinuteMinderLayoutScreen();
     }
     else
     {
-      startWidget = SocialLoginNewScreen();
+      startWidget = MinuteMinderLoginNewScreen();
     }
   }
   else
@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget
         BlocProvider(
             create: (BuildContext context)
             {
-              return SocialCubit();
+              return MinuteMinderCubit();
             }
         ),
       ],

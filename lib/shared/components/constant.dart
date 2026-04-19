@@ -20,7 +20,7 @@ void signOut(context)
   {
     if(value == true)
     {
-      navigateAndFinish(context, SocialLoginNewScreen(),);
+      navigateAndFinish(context, MinuteMinderLoginNewScreen(),);
     }
   });
 }

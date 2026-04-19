@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:minute_minder/shared/social_cubit/cubit.dart';
-import 'package:minute_minder/shared/social_cubit/states.dart';
+import 'package:minute_minder/shared/minute_minder_cubit/cubit.dart';
+import 'package:minute_minder/shared/minute_minder_cubit/states.dart';
 import 'package:minute_minder/shared/styles/color.dart';
 
 
-class SocialLayoutScreen extends StatelessWidget {
-  const SocialLayoutScreen({Key? key}) : super(key: key);
+class MinuteMinderLayoutScreen extends StatelessWidget {
+  const MinuteMinderLayoutScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context)
   {
-    var cubit = SocialCubit.get(context) ;
-    return BlocConsumer<SocialCubit,SocialAppStates>(
+    var cubit = MinuteMinderCubit.get(context) ;
+    return BlocConsumer<MinuteMinderCubit,MinuteMinderAppStates>(
       listener: (context,state)
       {},
       builder: (context,state)
@@ -57,7 +57,7 @@ class SocialLayoutScreen extends StatelessWidget {
             {
               cubit.changeIndex(index);
             },
-            items: SocialCubit.get(context).bottomItems,
+            items: MinuteMinderCubit.get(context).bottomItems,
             unselectedItemColor: Colors.black87,
           ),
         ) ;
