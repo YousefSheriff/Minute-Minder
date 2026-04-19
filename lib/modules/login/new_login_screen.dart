@@ -2,6 +2,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:minute_minder/modules/Social_layout/social_layout_screen.dart';
 // import 'package:minute_minder/modules/Social_layout/social_layout_screen.dart';
 import 'package:minute_minder/modules/login/login_cubit/cubit.dart';
 import 'package:minute_minder/modules/login/login_cubit/states.dart';
@@ -28,20 +29,20 @@ class SocialLoginNewScreen extends StatelessWidget {
       child: BlocConsumer<SocialLoginCubit, SocialLoginStates>(
         listener: (context, state)
         {
-          // if(state is SocialLoginSuccessState )
-          // {
-          //   CacheHelper.saveData(key: 'uId', value: state.uId).then((value)
-          //   {
-          //     navigateAndFinish(context, const SocialLayoutScreen());
-          //     showToast(message: 'Login Done Successfully', state: ToastStates.SUCCESS);
-          //
-          //   });
-          //   // navigateAndFinish(context, const SocialLayoutScreen(),);
-          // }
-          // else if(state is SocialLoginErrorState)
-          // {
-          //   showToast(message: 'PLz check your Data', state: ToastStates.ERROR);
-          // }
+          if(state is SocialLoginSuccessState )
+          {
+            CacheHelper.saveData(key: 'uId', value: state.uId).then((value)
+            {
+              navigateAndFinish(context, const SocialLayoutScreen());
+              showToast(message: 'Login Done Successfully', state: ToastStates.SUCCESS);
+
+            });
+            // navigateAndFinish(context, const SocialLayoutScreen(),);
+          }
+          else if(state is SocialLoginErrorState)
+          {
+            showToast(message: 'PLz check your Data', state: ToastStates.ERROR);
+          }
         },
         builder: (context, state) {
           return Scaffold(
